@@ -7,8 +7,9 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { checkUser } from '../auth';
-import { firebase } from '../client';
+import firebase from 'firebase';
+import 'firebase/auth';
+import { checkUser } from '../authManager';
 
 const AuthContext = createContext();
 
@@ -18,14 +19,13 @@ const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
   const [oAuthUser, setOAuthUser] = useState(null);
 
-  // there are 3 states for the user:
-  // null = application initial state, not yet loaded
-  // false = user is not logged in, but the app has loaded
-  // an object/value = user is logged in
+  // there are two types of users:
+  //        - oAuth (logged in with firebase auth)
+  //        - user (registered with rare/in the Django database)
 
   const updateUser = useMemo(
-    () => (uid) => checkUser(uid).then((gamerInfo) => {
-      setUser({ fbUser: oAuthUser, ...gamerInfo });
+    () => (uid) => checkUser(uid).then((userData) => {
+      setUser({ fbUser: oAuthUser, ...userData });
     }),
     [oAuthUser],
   );
@@ -34,18 +34,17 @@ const AuthProvider = (props) => {
     firebase.auth().onAuthStateChanged((fbUser) => {
       if (fbUser) {
         setOAuthUser(fbUser);
-        checkUser(fbUser.uid).then((gamerInfo) => {
+        checkUser(fbUser.uid).then((userData) => {
           let userObj = {};
-          if ('null' in gamerInfo) {
-            userObj = gamerInfo;
+          if (!userData.uid) {
+            userObj = null;
           } else {
-            userObj = { fbUser, uid: fbUser.uid, ...gamerInfo };
+            userObj = { fbUser, uid: fbUser.uid, ...userData };
           }
           setUser(userObj);
         });
       } else {
         setOAuthUser(false);
-        setUser(false);
       }
     }); // creates a single global listener for auth state changed
   }, []);
@@ -54,8 +53,9 @@ const AuthProvider = (props) => {
     // https://reactjs.org/docs/hooks-reference.html#usememo
     () => ({
       user,
+      oAuthUser,
       updateUser,
-      userLoading: user === null || oAuthUser === null,
+      userLoading: oAuthUser === null,
       // as long as user === null, will be true
       // As soon as the user value !== null, value will be false
     }),
