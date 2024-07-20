@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
-import { deleteSingleBath } from '../api/bathData';
+import { deleteSingleProduct } from '../api/productsData';
 
 function BathCard({ bathObj, onUpdate }) {
   const deleteThisBath = () => {
     if (window.confirm(`Delete ${bathObj.name}?`)) {
-      deleteSingleBath(bathObj.firebaseKey).then(() => onUpdate());
+      deleteSingleProduct(bathObj.firebaseKey).then(() => onUpdate());
     }
   };
 
