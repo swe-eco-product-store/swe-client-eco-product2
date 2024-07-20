@@ -2,37 +2,40 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-  Navbar, Container, Nav, Button,
+  Navbar, Container, Nav, Button, Image,
 } from 'react-bootstrap';
 import { signOut } from '../utils/auth';
 
 export default function NavBar() {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="lg" className="custom-navbar" variant="light">
       <Container>
-        <Link passHref href="/">
-          <Navbar.Brand>ECO PRODUCTS</Navbar.Brand>
-        </Link>
+        <Navbar.Brand>
+          <Link passHref href="/">
+            <Image src="/Eco-no-bg-final.jpg" alt="ECO PRODUCTS Logo" style={{ height: '300px' }} />
+          </Link>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            {/* CLOSE NAVBAR ON LINK SELECTION: https://stackoverflow.com/questions/72813635/collapse-on-select-react-bootstrap-navbar-with-nextjs-not-working */}
             <Link passHref href="/Home/new">
-              <Nav.Link>Home</Nav.Link>
+              <Nav.Link className="custom-nav-link">Home</Nav.Link>
             </Link>
             <Link passHref href="/kitchen/new">
-              <Nav.Link>Kitchen</Nav.Link>
+              <Nav.Link className="custom-nav-link">Kitchen</Nav.Link>
             </Link>
             <Link passHref href="/Bath/new">
-              <Nav.Link>Bath</Nav.Link>
+              <Nav.Link className="custom-nav-link">Bath</Nav.Link>
             </Link>
             <Link passHref href="/pets/new">
-              <Nav.Link>Pets</Nav.Link>
+              <Nav.Link className="custom-nav-link">Pets</Nav.Link>
             </Link>
+          </Nav>
+          <Nav className="ms-auto">
             <Link passHref href="/viewCart/new">
-              <Nav.Link>View Cart</Nav.Link>
+              <Button className="custom-nav-button">View Cart</Button>
             </Link>
-            <Button variant="danger" onClick={signOut}>Sign Out</Button>
+            <Button className="custom-nav-button" onClick={signOut}>Sign Out</Button>
           </Nav>
         </Navbar.Collapse>
       </Container>
