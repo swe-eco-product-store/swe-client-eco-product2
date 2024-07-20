@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
-import { deleteSingleKitchen } from '../api/kitchenData';
+import { deleteSingleProduct } from '../api/productsData';
 
 function KitchenCard({ kitchenObj, onUpdate }) {
   const deleteKitchen = () => {
     if (window.confirm(`Delete ${kitchenObj.name}?`)) {
-      deleteSingleKitchen(kitchenObj.firebaseKey).then(() => onUpdate());
+      deleteSingleProduct(kitchenObj.firebaseKey).then(() => onUpdate());
     }
   };
 
