@@ -16,9 +16,9 @@ function Home() {
     <div className="Button">
       <h1>Hello {user.displayName}</h1>
       <h2>SELECT A CATEGORY</h2>
-      <Button onClick={() => navigateTo('/Bath/new')}>Bath</Button>
-      <Button onClick={() => navigateTo('pets/new')}>Pets</Button>
-      <Button onClick={() => navigateTo('kitchen/new')}>Kitchen</Button>
+      <Button onClick={() => navigateTo('/BathProducts')}>Bath</Button>
+      <Button onClick={() => navigateTo('/PetProducts')}>Pets</Button>
+      <Button onClick={() => navigateTo('/KitchenProducts')}>Kitchen</Button>
       <Button onClick={() => navigateTo('viewCart/new')}>VIew Cart</Button>
     </div>
   );

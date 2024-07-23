@@ -4,7 +4,7 @@ const endpoint = clientCredentials.databaseURL;
 
 // GET KITCHEN PRODUCTS
 const getKitchenProducts = () => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/products?category_id=1`, {
+  fetch(`${endpoint}/products?category=1`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ const getKitchenProducts = () => new Promise((resolve, reject) => {
     .then((response) => response.json())
     .then((data) => {
       if (data) {
-        resolve(Object.values(data));
+        resolve(data);
       } else {
         resolve([]);
       }
@@ -23,7 +23,7 @@ const getKitchenProducts = () => new Promise((resolve, reject) => {
 
 // GET BATH PRODUCTS
 const getBathProducts = () => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/products?category_id=2`, {
+  fetch(`${endpoint}/products?category=2`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ const getBathProducts = () => new Promise((resolve, reject) => {
     .then((response) => response.json())
     .then((data) => {
       if (data) {
-        resolve(Object.values(data));
+        resolve(data);
       } else {
         resolve([]);
       }
@@ -40,9 +40,28 @@ const getBathProducts = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// GET PETS PRODUCTS
+// GET PET PRODUCTS
 const getPetProducts = () => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/products?category_id=3`, {
+  fetch(`${endpoint}/products?category=3`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        resolve(data);
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+
+// GET PRODUCTS BY CATEGORY ID
+const getProductsByCategoryId = (id) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/products?orderBy="category_id"="${id}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -122,4 +141,5 @@ export {
   createProducts,
   deleteSingleProduct,
   updateProducts,
+  getProductsByCategoryId,
 };
