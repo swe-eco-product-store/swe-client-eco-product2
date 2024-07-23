@@ -21,13 +21,13 @@ export default function NavBar() {
             <Link passHref href="/Home/new">
               <Nav.Link className="custom-nav-link">Home</Nav.Link>
             </Link>
-            <Link passHref href="/kitchen/new">
+            <Link passHref href="/KitchenProducts">
               <Nav.Link className="custom-nav-link">Kitchen</Nav.Link>
             </Link>
-            <Link passHref href="/Bath/new">
+            <Link passHref href="/BathProducts">
               <Nav.Link className="custom-nav-link">Bath</Nav.Link>
             </Link>
-            <Link passHref href="/pets/new">
+            <Link passHref href="/PetProducts">
               <Nav.Link className="custom-nav-link">Pets</Nav.Link>
             </Link>
           </Nav>

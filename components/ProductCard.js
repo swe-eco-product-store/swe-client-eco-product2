@@ -5,28 +5,28 @@ import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
 import { deleteSingleProduct } from '../api/productsData';
 
-function BathCard({ bathObj, onUpdate }) {
-  const deleteThisBath = () => {
-    if (window.confirm(`Delete ${bathObj.name}?`)) {
-      deleteSingleProduct(bathObj.firebaseKey).then(() => onUpdate());
+function ProductCard({ Obj, onUpdate }) {
+  const deleteThisProduct = () => {
+    if (window.confirm(`Delete ${Obj.name}?`)) {
+      deleteSingleProduct(Obj.id).then(() => onUpdate());
     }
   };
 
   return (
     <Card style={{ width: '24rem', margin: '10px' }}>
       <Card.Body>
-        <Card.Img variant="top" src={bathObj.product_image} alt={bathObj.name} style={{ height: '400px' }} />
-        <Card.Title>{bathObj.name}</Card.Title>
-        <Card.Text>{bathObj.price}</Card.Text>
+        <Card.Img variant="top" src={Obj.product_image} alt={Obj.name} style={{ height: '400px' }} />
+        <Card.Title>{Obj.name}</Card.Title>
+        <Card.Text>{Obj.price}</Card.Text>
         {/* DYNAMIC LINK TO VIEW THE BATH DETAILS  */}
-        <Link href={`/bath/${bathObj.firebaseKey}`} passHref>
+        <Link href={`/bath/${Obj.id}`} passHref>
           <Button variant="primary" className="m-2">Veiw Details</Button>
         </Link>
         {/* DYNAMIC LINK TO EDIT THE BATH DETAILS  */}
-        <Link href={`/bath/edit/${bathObj.firebaseKey}`} passHref>
+        <Link href={`/bath/edit/${Obj.id}`} passHref>
           <Button variant="info">ADD CART</Button>
         </Link>
-        <Button variant="danger" onClick={deleteThisBath} className="m-2">
+        <Button variant="danger" onClick={deleteThisProduct} className="m-2">
           DELETE
         </Button>
       </Card.Body>
@@ -34,14 +34,14 @@ function BathCard({ bathObj, onUpdate }) {
   );
 }
 
-BathCard.propTypes = {
-  bathObj: PropTypes.shape({
+ProductCard.propTypes = {
+  Obj: PropTypes.shape({
     name: PropTypes.string,
     product_image: PropTypes.string,
     price: PropTypes.string,
-    firebaseKey: PropTypes.string,
+    id: PropTypes.number,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
 
-export default BathCard;
+export default ProductCard;
