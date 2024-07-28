@@ -2,6 +2,24 @@ import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
 
+const getAllProducts = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/products.json`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        resolve(data);
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+
 // GET KITCHEN PRODUCTS
 const getKitchenProducts = () => new Promise((resolve, reject) => {
   fetch(`${endpoint}/products?category=1`, {
@@ -99,14 +117,22 @@ const deleteSingleProduct = (id) => new Promise((resolve, reject) => {
       'Content-Type': 'application/json',
     },
   })
-    .then((response) => response.json())
-    .then((data) => resolve(data))
-    .catch(reject);
+    .then((response) => {
+      if (response.ok) {
+        resolve(response);
+      } else {
+        reject(new Error('Failed to delete product'));
+      }
+    })
+    .catch((error) => {
+      console.error('Error deleting product:', error);
+      reject(error);
+    });
 });
 
 // CREATE PRODUCT
-const createProducts = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/products.json`, {
+const createProduct = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/products`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -120,9 +146,9 @@ const createProducts = (payload) => new Promise((resolve, reject) => {
 
 // UPDATE PRODUCTS
 
-const updateProducts = (payload) => new Promise((resolve, reject) => {
+const updateProduct = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/products/${payload.id}.json`, {
-    method: 'PATCH',
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -134,12 +160,13 @@ const updateProducts = (payload) => new Promise((resolve, reject) => {
 });
 
 export {
+  getAllProducts,
   getBathProducts,
   getKitchenProducts,
   getPetProducts,
   getSingleProduct,
-  createProducts,
+  createProduct,
   deleteSingleProduct,
-  updateProducts,
+  updateProduct,
   getProductsByCategoryId,
 };
