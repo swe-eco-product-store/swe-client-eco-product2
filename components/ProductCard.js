@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { Form } from 'react-bootstrap';
 import Link from 'next/link';
 import Modal from 'react-bootstrap/Modal';
 import { deleteSingleProduct } from '../api/productsData';
 
 function ProductCard({ Obj, onUpdate }) {
   const [showModal, setShowModal] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
@@ -16,6 +18,9 @@ function ProductCard({ Obj, onUpdate }) {
       deleteSingleProduct(Obj.id).then(() => onUpdate());
     }
   };
+  const handleQuantityChange = (event) => {
+    setQuantity(event.target.value);
+  };
 
   return (
     <Card style={{ width: '24rem', margin: '10px' }}>
@@ -23,6 +28,17 @@ function ProductCard({ Obj, onUpdate }) {
         <Card.Img variant="top" src={Obj.product_image} alt={Obj.name} style={{ height: '400px' }} />
         <Card.Title>{Obj.name}</Card.Title>
         <Card.Text>{Obj.price}</Card.Text>
+        {/* QUANTITY DROPDOWN */}
+        <Form.Group controlId="formQuantity">
+          <Form.Label>Quantity</Form.Label>
+          <Form.Select value={quantity} onChange={handleQuantityChange} style={{ width: '100px' }}>
+            {[...Array(10).keys()].map((num) => (
+              <option key={num + 1} value={num + 1}>
+                {num + 1}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
         {/* DYNAMIC LINK TO VIEW THE BATH DETAILS  */}
         {/* DYNAMIC LINK TO EDIT THE BATH DETAILS  */}
         <Link href={`/bath/edit/${Obj.id}`} passHref>
