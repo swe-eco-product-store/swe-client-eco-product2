@@ -18,9 +18,6 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Link passHref href="/Home/new">
-              <Nav.Link className="custom-nav-link">Home</Nav.Link>
-            </Link>
             <Link passHref href="/KitchenProducts">
               <Nav.Link className="custom-nav-link">Kitchen</Nav.Link>
             </Link>

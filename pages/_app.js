@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css';
+import React from 'react';
 import { AuthProvider } from '../utils/context/authContext';
 import ViewDirectorBasedOnUserAuthStatus from '../utils/ViewDirector';
+// import { useRouter } from 'next/router';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
+  const hideNavbar = router.pathname === '/';
   return (
     <AuthProvider>
       {' '}
@@ -15,6 +18,7 @@ function MyApp({ Component, pageProps }) {
         // if status is logged out === sign in page
         component={Component}
         pageProps={pageProps}
+        hideNavbar={hideNavbar}
       />
     </AuthProvider>
   );
