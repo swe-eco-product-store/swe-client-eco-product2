@@ -38,6 +38,7 @@ function ViewBathProducts() {
           </div>
         ))}
       </div>
+
     </div>
   );
 }

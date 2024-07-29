@@ -4,8 +4,11 @@ import Loading from '../components/Loading';
 import Signin from '../components/Signin';
 import NavBar from '../components/NavBar';
 import RegisterForm from '../components/RegisterForm';
+import Footer from '../components/Footer';
 
-const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) => {
+const ViewDirectorBasedOnUserAuthStatus = ({
+  component: Component, pageProps, hideNavbar, hideFooter,
+}) => {
   const { user, userLoading, updateUser } = useAuth();
 
   // if user state is null, then show loader
@@ -17,8 +20,15 @@ const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) 
   if (user) {
     return (
       <>
-        <NavBar /> {/* NavBar only visible if user is logged in and is in every view */}
-        <div className="container">{'valid' in user ? <RegisterForm user={user} updateUser={updateUser} /> : <Component {...pageProps} />}</div>
+        {!hideNavbar && <NavBar />} {/* conditionally render Navbar */}
+        <div className="container">
+          {'valid' in user ? (
+            <RegisterForm user={user} updateUser={updateUser} />
+          ) : (
+            <Component {...pageProps} />
+          )}
+        </div>
+        {!hideFooter && <Footer />} {/* conditionally render Footer */}
       </>
     );
   }
@@ -26,9 +36,16 @@ const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) 
   return <Signin />;
 };
 
-export default ViewDirectorBasedOnUserAuthStatus;
-
 ViewDirectorBasedOnUserAuthStatus.propTypes = {
   component: PropTypes.func.isRequired,
   pageProps: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  hideNavbar: PropTypes.bool,
+  hideFooter: PropTypes.bool,
 };
+
+ViewDirectorBasedOnUserAuthStatus.defaultProps = {
+  hideNavbar: false,
+  hideFooter: false,
+};
+
+export default ViewDirectorBasedOnUserAuthStatus;
