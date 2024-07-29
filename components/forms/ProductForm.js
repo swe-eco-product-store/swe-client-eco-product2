@@ -57,10 +57,14 @@ const ProductForm = ({ productObj }) => {
     if (productObj) {
       updateProduct(productId, product)
         .then(() => {
-          router.push('/products');
+          router.back();
+          setTimeout(() => window.location.reload(), 100);
         });
     } else {
-      createProduct(product).then(() => router.push('/products'));
+      createProduct(product).then(() => {
+        router.back();
+        setTimeout(() => window.location.reload(), 100);
+      });
     }
   };
 
