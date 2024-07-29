@@ -27,13 +27,17 @@ function ViewKitchenProducts() {
   };
 
   return (
-    <div>
+    <div className="container">
       <div className="Button text-center my-4">
         <Button variant="primary" onClick={handleAddProduct}>Add A Product</Button>
       </div>
-      {kitchenProducts.map((product) => (
-        <ProductCard key={product.id} Obj={product} onUpdate={getAllKitchenProducts} />
-      ))}
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        {kitchenProducts.map((product) => (
+          <div className="col" key={product.id}>
+            <ProductCard Obj={product} onUpdate={getAllKitchenProducts} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
