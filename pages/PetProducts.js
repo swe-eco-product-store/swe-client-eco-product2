@@ -27,13 +27,17 @@ function ViewPetProducts() {
   };
 
   return (
-    <div>
+    <div className="container">
       <div className="Button text-center my-4">
         <Button variant="primary" onClick={handleAddProduct}>Add A Product</Button>
       </div>
-      {petProducts.map((product) => (
-        <ProductCard key={product.id} Obj={product} onUpdate={getAllPetProducts} />
-      ))}
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        {petProducts.map((product) => (
+          <div className="col" key={product.id}>
+            <ProductCard Obj={product} onUpdate={getAllPetProducts} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
