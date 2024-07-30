@@ -4,8 +4,11 @@ import Loading from '../components/Loading';
 import Signin from '../components/Signin';
 import NavBar from '../components/NavBar';
 import RegisterForm from '../components/RegisterForm';
+import Footer from '../components/Footer';
 
-const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps, hideNavbar }) => {
+const ViewDirectorBasedOnUserAuthStatus = ({
+  component: Component, pageProps, hideNavbar, hideFooter,
+}) => {
   const { user, userLoading, updateUser } = useAuth();
 
   // if user state is null, then show loader
@@ -25,6 +28,7 @@ const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps, hi
             <Component {...pageProps} />
           )}
         </div>
+        {!hideFooter && <Footer />} {/* conditionally render Footer */}
       </>
     );
   }
@@ -36,10 +40,12 @@ ViewDirectorBasedOnUserAuthStatus.propTypes = {
   component: PropTypes.func.isRequired,
   pageProps: PropTypes.oneOfType([PropTypes.object]).isRequired,
   hideNavbar: PropTypes.bool,
+  hideFooter: PropTypes.bool,
 };
 
 ViewDirectorBasedOnUserAuthStatus.defaultProps = {
   hideNavbar: false,
+  hideFooter: false,
 };
 
 export default ViewDirectorBasedOnUserAuthStatus;
