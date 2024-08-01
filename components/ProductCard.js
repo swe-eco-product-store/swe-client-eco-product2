@@ -23,7 +23,7 @@ function ProductCard({ Obj, onUpdate }) {
   };
 
   return (
-    <Card style={{ width: '24rem', margin: '10px' }}>
+    <Card give the carstyle={{ width: '24rem', margin: '10px' }}>
       <Card.Body>
         <Card.Img variant="top" src={Obj.product_image} alt={Obj.name} style={{ height: '400px' }} />
         <Card.Title>{Obj.name}</Card.Title>
@@ -42,7 +42,7 @@ function ProductCard({ Obj, onUpdate }) {
         {/* DYNAMIC LINK TO VIEW THE BATH DETAILS  */}
         {/* DYNAMIC LINK TO EDIT THE BATH DETAILS  */}
         <Link href={`/bath/edit/${Obj.id}`} passHref>
-          <Button variant="info">ADD CART</Button>
+          <Button variant="info" className="m-2">ADD CART</Button>
         </Link>
         <Button variant="danger" onClick={deleteThisProduct} className="m-2">
           DELETE
@@ -60,7 +60,7 @@ function ProductCard({ Obj, onUpdate }) {
         </Modal.Header>
         <Modal.Body>{Obj.description}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
+          <Button variant="secondary" onClick={handleCloseModal} className="m-2">
             Close
           </Button>
         </Modal.Footer>
