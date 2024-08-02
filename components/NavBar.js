@@ -29,7 +29,7 @@ export default function NavBar() {
             </Link>
           </Nav>
           <Nav className="ms-auto">
-            <Link passHref href="/viewCart/new">
+            <Link passHref href="/cart">
               <Button className="custom-nav-button">View Cart</Button>
             </Link>
             <Button className="custom-nav-button" onClick={signOut}>Sign Out</Button>
