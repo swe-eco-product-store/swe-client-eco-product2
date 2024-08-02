@@ -41,6 +41,11 @@ function ProductCard({ Obj, onUpdate }) {
             Add to Cart
           </Button>
         </Link>
+        <Link href={`/editProduct?productId=${Obj.id}`} passHref>
+          <Button variant="success" className="m-2">
+            Edit
+          </Button>
+        </Link>
         <Button variant="danger" onClick={deleteThisProduct} className="m-2">
           DELETE
         </Button>
