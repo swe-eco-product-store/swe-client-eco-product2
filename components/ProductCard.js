@@ -29,7 +29,7 @@ function ProductCard({ Obj, onUpdate }) {
     localStorage.setItem('cart', JSON.stringify(cart));
   };
   return (
-    <Card give the carstyle={{ width: '24rem', margin: '10px' }}>
+    <Card style={{ width: '24rem', margin: '10px' }}>
       <Card.Body>
         <Card.Img variant="top" src={Obj.product_image} alt={Obj.name} style={{ height: '400px' }} />
         <Card.Title>{Obj.name}</Card.Title>
