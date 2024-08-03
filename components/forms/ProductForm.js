@@ -11,28 +11,26 @@ const initialState = {
   description: '',
   product_image: '',
   category: '',
-  quantity: 0,
 };
 
-const ProductForm = ({ productObj }) => {
-  const [formData, setFormData] = useState(productObj || initialState);
+const ProductForm = ({ obj }) => {
+  const [formData, setFormData] = useState(obj || initialState);
   const [categories, setCategories] = useState([]);
   const router = useRouter();
   const { productId } = router.query;
 
   useEffect(() => {
-    if (productObj) {
+    if (obj) {
       setFormData({
-        name: productObj.name,
-        price: productObj.price.toString(),
-        description: productObj.description,
-        product_image: productObj.product_image,
-        category: productObj.category,
-        quantity: productObj.quantity,
+        name: obj.name,
+        price: obj.price.toString(),
+        description: obj.description,
+        product_image: obj.product_image,
+        category: obj.category,
       });
     }
     getCategories().then((data) => setCategories(data));
-  }, [productObj]);
+  }, [obj]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,10 +49,9 @@ const ProductForm = ({ productObj }) => {
       description: formData.description,
       product_image: formData.product_image,
       category: parseInt(formData.category, 10),
-      quantity: parseInt(formData.quantity, 10),
     };
 
-    if (productObj) {
+    if (obj) {
       updateProduct(productId, product)
         .then(() => {
           router.back();
@@ -128,18 +125,8 @@ const ProductForm = ({ productObj }) => {
             {categoryOptions}
           </Form.Select>
         </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Quantity</Form.Label>
-          <Form.Control
-            type="number"
-            name="quantity"
-            required
-            value={formData.quantity}
-            onChange={handleChange}
-          />
-        </Form.Group>
         <Button variant="primary" type="submit">
-          {productObj ? 'Update Product' : 'Create Product'}
+          {obj ? 'Update Product' : 'Create Product'}
         </Button>
       </Form>
     </>
@@ -147,18 +134,17 @@ const ProductForm = ({ productObj }) => {
 };
 
 ProductForm.propTypes = {
-  productObj: PropTypes.shape({
+  obj: PropTypes.shape({
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     product_image: PropTypes.string.isRequired,
     category: PropTypes.number.isRequired,
-    quantity: PropTypes.number.isRequired,
   }),
 };
 
 ProductForm.defaultProps = {
-  productObj: null,
+  obj: null,
 };
 
 export default ProductForm;

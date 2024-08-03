@@ -29,7 +29,7 @@ function ProductCard({ Obj, onUpdate }) {
     localStorage.setItem('cart', JSON.stringify(cart));
   };
   return (
-    <Card give the carstyle={{ width: '24rem', margin: '10px' }}>
+    <Card style={{ width: '24rem', margin: '10px' }}>
       <Card.Body>
         <Card.Img variant="top" src={Obj.product_image} alt={Obj.name} style={{ height: '400px' }} />
         <Card.Title>{Obj.name}</Card.Title>
@@ -39,6 +39,11 @@ function ProductCard({ Obj, onUpdate }) {
         <Link href="/cart" passHref>
           <Button variant="success" onClick={handleAddToCart} className="m-2">
             Add to Cart
+          </Button>
+        </Link>
+        <Link href={`/editProduct?productId=${Obj.id}`} passHref>
+          <Button variant="success" className="m-2">
+            Edit
           </Button>
         </Link>
         <Button variant="danger" onClick={deleteThisProduct} className="m-2">

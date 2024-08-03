@@ -146,16 +146,21 @@ const createProduct = (payload) => new Promise((resolve, reject) => {
 
 // UPDATE PRODUCTS
 
-const updateProduct = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/products/${payload.id}.json`, {
+const updateProduct = (productId, product) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/products/${productId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(product),
   })
-    .then((response) => response.json())
-    .then((data) => resolve(data))
+    .then((response) => {
+      if (response.status === 204) {
+        return {};
+      }
+      return response.json();
+    })
+    .then(resolve)
     .catch(reject);
 });
 
