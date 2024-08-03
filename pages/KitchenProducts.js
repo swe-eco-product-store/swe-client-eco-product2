@@ -3,15 +3,18 @@ import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import { getKitchenProducts } from '../api/productsData';
 import ProductCard from '../components/ProductCard';
+import SearchBar from '../components/SearchBar';
 
 function ViewKitchenProducts() {
   const [kitchenProducts, setKitchenProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const router = useRouter();
 
-  const getAllKitchenProducts = () => {
+  const fetchKitchenProducts = () => {
     getKitchenProducts()
       .then((data) => {
         setKitchenProducts(data);
+        setFilteredProducts(data);
       })
       .catch((error) => {
         console.error('Error fetching kitchen products:', error);
@@ -19,8 +22,21 @@ function ViewKitchenProducts() {
   };
 
   useEffect(() => {
-    getAllKitchenProducts();
+    fetchKitchenProducts();
   }, []);
+
+  const handleSearch = (category, query) => {
+    const lowercasedQuery = query.toLowerCase();
+    const filtered = kitchenProducts.filter((product) => {
+      const categoryName = product.category?.name?.toLowerCase() || '';
+      const productName = product.name?.toLowerCase() || '';
+      const productDescription = product.description?.toLowerCase() || '';
+      const matchesCategory = category ? categoryName === category.toLowerCase() : true;
+      const matchesQuery = productName.includes(lowercasedQuery) || productDescription.includes(lowercasedQuery);
+      return matchesCategory && matchesQuery;
+    });
+    setFilteredProducts(filtered);
+  };
 
   const handleAddProduct = () => {
     router.push('/newProducts');
@@ -31,10 +47,11 @@ function ViewKitchenProducts() {
       <div className="Button text-center my-4">
         <Button variant="primary" onClick={handleAddProduct}>Add A Product</Button>
       </div>
+      <SearchBar category="Kitchen" onSearch={handleSearch} />
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-        {kitchenProducts.map((product) => (
+        {filteredProducts.map((product) => (
           <div className="col" key={product.id}>
-            <ProductCard Obj={product} onUpdate={getAllKitchenProducts} />
+            <ProductCard Obj={product} onUpdate={fetchKitchenProducts} />
           </div>
         ))}
       </div>
