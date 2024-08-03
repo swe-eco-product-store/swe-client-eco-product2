@@ -1,4 +1,3 @@
-// EditGame.js
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getSingleProduct, updateProduct } from '../api/productsData';

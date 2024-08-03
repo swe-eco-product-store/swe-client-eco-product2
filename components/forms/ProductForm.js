@@ -26,7 +26,7 @@ const ProductForm = ({ obj }) => {
         price: obj.price.toString(),
         description: obj.description,
         product_image: obj.product_image,
-        category: obj.category,
+        category: obj.category && obj.category.id ? obj.category.id.toString() : obj.category.toString(),
       });
     }
     getCategories().then((data) => setCategories(data));
@@ -136,10 +136,16 @@ const ProductForm = ({ obj }) => {
 ProductForm.propTypes = {
   obj: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     description: PropTypes.string.isRequired,
     product_image: PropTypes.string.isRequired,
-    category: PropTypes.number.isRequired,
+    category: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      }),
+    ]).isRequired,
   }),
 };
 
