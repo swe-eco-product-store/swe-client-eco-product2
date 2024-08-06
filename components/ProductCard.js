@@ -23,19 +23,19 @@ function ProductCard({ Obj, onUpdate }) {
       product_image: Obj.product_image,
       price: Obj.price,
       description: Obj.description,
+      quantity: 1,
     };
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     cart.push(product);
     localStorage.setItem('cart', JSON.stringify(cart));
   };
+
   return (
     <Card style={{ width: '24rem', margin: '10px' }}>
       <Card.Body>
         <Card.Img variant="top" src={Obj.product_image} alt={Obj.name} style={{ height: '400px' }} />
         <Card.Title>{Obj.name}</Card.Title>
         <Card.Text>{Obj.price}</Card.Text>
-        {/* DYNAMIC LINK TO VIEW THE BATH DETAILS  */}
-        {/* DYNAMIC LINK TO EDIT THE BATH DETAILS  */}
         <Link href="/cart" passHref>
           <Button variant="success" onClick={handleAddToCart} className="m-2">
             Add to Cart
@@ -49,13 +49,11 @@ function ProductCard({ Obj, onUpdate }) {
         <Button variant="danger" onClick={deleteThisProduct} className="m-2">
           DELETE
         </Button>
-        {/* Button to show the modal */}
         <Button variant="info" onClick={handleShowModal} className="m-2">
           DETAILS
         </Button>
       </Card.Body>
 
-      {/* Modal for displaying description */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>{Obj.name} Details </Modal.Title>
