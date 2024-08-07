@@ -19,6 +19,7 @@ function Checkout() {
         <h2>Please Rate Us</h2>
         <div className="stars">
           {[1, 2, 3, 4, 5].map((star) => (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
             <span
               key={star}
               className={`star ${star <= rating ? 'filled' : ''}`}

@@ -32,7 +32,7 @@ function ViewCart() {
     localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
-  const calculateTotal = () => cartItems.reduce((total, item) => total + (parseFloat(item.price) * (quantities[item.id] || 1)), 0).toFixed(2);
+  // const calculateTotal = () => cartItems.reduce((total, item) => total + (parseFloat(item.price) * (quantities[item.id] || 1)), 0).toFixed(2);
 
   return (
     <div>
@@ -42,7 +42,7 @@ function ViewCart() {
       ) : (
         <>
           {cartItems.map((product) => (
-            <Card key={product.id} style={{ width: '24rem', margin: '10px'}}>
+            <Card key={product.id} style={{ width: '24rem', margin: '10px' }}>
               <Card.Body>
                 <Card.Img variant="top" src={product.product_image} alt={product.name} style={{ height: '400px' }} />
                 <Card.Title>{product.name}</Card.Title>
