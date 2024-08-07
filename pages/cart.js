@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
+import Link from 'next/link';
 import ViewCart from '../components/ViewCart';
 
 const CartPage = () => {
@@ -29,6 +31,9 @@ const CartPage = () => {
       <h1>My Cart</h1>
       <ViewCart cart={cart} removeFromCart={removeFromCart} />
       <h2>Total: ${total.toFixed(2)}</h2>
+      <Link passHref href="/checkoutpage">
+        <Button size="lg">Checkout</Button>
+      </Link>
     </div>
   );
 };

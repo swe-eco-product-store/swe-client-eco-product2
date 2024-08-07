@@ -42,7 +42,7 @@ function ViewCart() {
       ) : (
         <>
           {cartItems.map((product) => (
-            <Card key={product.id} style={{ width: '24rem', margin: '10px' }}>
+            <Card key={product.id} style={{ width: '24rem', margin: '10px'}}>
               <Card.Body>
                 <Card.Img variant="top" src={product.product_image} alt={product.name} style={{ height: '400px' }} />
                 <Card.Title>{product.name}</Card.Title>
@@ -68,7 +68,6 @@ function ViewCart() {
               </Card.Body>
             </Card>
           ))}
-          <div>Total: ${calculateTotal()}</div>
         </>
       )}
     </div>
