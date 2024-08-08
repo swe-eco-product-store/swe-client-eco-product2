@@ -4,6 +4,18 @@ import Alert from 'react-bootstrap/Alert';
 
 function Checkout() {
   const [rating, setRating] = useState(0);
+  const [cart, setCart] = useState([]);
+  const [, setTotal] = useState(0);
+
+  const calculateTotal = (cartItems) => cartItems.reduce((sum, item) => sum + (Number(item.price) || 0) * (Number(item.quantity) || 0), 0);
+
+  const removeFromCart = (id) => {
+    const updatedCart = cart.filter((item) => item.id !== id);
+    setCart(updatedCart);
+    setTotal(calculateTotal(updatedCart));
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    alert('Thank You for your feedback');
+  };
 
   const handleStarClick = (value) => {
     setRating(value);
@@ -30,7 +42,7 @@ function Checkout() {
           ))}
         </div>
         <h4>Your rating: {rating} {rating > 0 ? `star${rating > 1 ? 's' : ''}` : ''}</h4>
-        <Button varient="warning" onClick={() => { alert('Thank you for your feedback!'); }}>Submit feedback </Button>
+        <Button varient="warning" onClick={removeFromCart}>Submit feedback </Button>
       </div>
     </Alert>
   );
