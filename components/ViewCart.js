@@ -32,7 +32,7 @@ function ViewCart() {
     localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
-  const calculateTotal = () => cartItems.reduce((total, item) => total + (parseFloat(item.price) * (quantities[item.id] || 1)), 0).toFixed(2);
+  // const calculateTotal = () => cartItems.reduce((total, item) => total + (parseFloat(item.price) * (quantities[item.id] || 1)), 0).toFixed(2);
 
   return (
     <div>
@@ -68,7 +68,6 @@ function ViewCart() {
               </Card.Body>
             </Card>
           ))}
-          <div>Total: ${calculateTotal()}</div>
         </>
       )}
     </div>

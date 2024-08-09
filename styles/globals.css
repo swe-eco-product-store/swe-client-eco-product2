@@ -188,3 +188,33 @@ main {
 .card-title {
   text-decoration: underline;
 }
+
+.star-rating {
+  text-align: center
+}
+
+.star {
+  font-size: 40px;
+  color:lightgray;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.stars {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+.star.filled {
+  color: gold
+}
+
+.checkout-page {
+  margin: 200px;
+}
+.checkout-page, p{
+  text-align: center;
+}
+
+.veiw-card {
+  display: flex;
+}
