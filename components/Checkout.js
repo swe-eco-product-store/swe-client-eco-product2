@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 
@@ -6,6 +7,7 @@ function Checkout() {
   const [rating, setRating] = useState(0);
   const [cart, setCart] = useState([]);
   const [, setTotal] = useState(0);
+  const router = useRouter();
 
   const calculateTotal = (cartItems) => cartItems.reduce((sum, item) => sum + (Number(item.price) || 0) * (Number(item.quantity) || 0), 0);
 
@@ -15,6 +17,7 @@ function Checkout() {
     setTotal(calculateTotal(updatedCart));
     localStorage.setItem('cart', JSON.stringify(updatedCart));
     alert('Thank You for your feedback');
+    router.push('/cart');
   };
 
   const handleStarClick = (value) => {
