@@ -9,6 +9,7 @@ import 'slick-carousel/slick/slick-theme.css';
 function ViewCart() {
   const [cartItems, setCartItems] = useState([]);
   const [quantities, setQuantities] = useState({});
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -19,6 +20,11 @@ function ViewCart() {
     });
     setQuantities(initialQuantities);
   }, []);
+
+  useEffect(() => {
+    const newTotal = cartItems.reduce((sum, item) => sum + (item.price * (quantities[item.id] || 1)), 0);
+    setTotal(newTotal.toFixed(2));
+  }, [cartItems, quantities]);
 
   const handleQuantityChange = (event, productId) => {
     const newQuantity = parseInt(event.target.value, 10);
@@ -32,10 +38,14 @@ function ViewCart() {
   const removeFromCart = (productId) => {
     const updatedCart = cartItems.filter((item) => item.id !== productId);
     setCartItems(updatedCart);
+    setQuantities((prev) => {
+      const newQuantities = { ...prev };
+      delete newQuantities[productId];
+      return newQuantities;
+    });
     localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
-  // const calculateTotal = () => cartItems.reduce((total, item) => total + (parseFloat(item.price) * (quantities[item.id] || 1)), 0).toFixed(2);
   const sliderSettings = {
     dots: true,
     infinite: false,
@@ -80,6 +90,7 @@ function ViewCart() {
               </Card>
             ))}
           </Slider>
+          <h2>Total: ${total}</h2>
         </>
       )}
     </div>
