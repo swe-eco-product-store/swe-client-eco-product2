@@ -27,11 +27,11 @@ const CartPage = () => {
   };
 
   return (
-    <div>
+    <div style={{textAlign: 'center'}}>
       <h1>My Cart</h1>
       <ViewCart cart={cart} removeFromCart={removeFromCart} />
       <h2>Total: ${total.toFixed(2)}</h2>
-      <Link passHref href="/checkoutpage">
+      <Link style={{textAlign: 'center'}} passHref href="/checkoutpage">
         <Button size="lg">Checkout</Button>
       </Link>
     </div>
