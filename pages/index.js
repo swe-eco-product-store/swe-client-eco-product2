@@ -40,7 +40,7 @@ function Home() {
         <Button className="d-block w-100 mb-2" onClick={() => navigateTo('/BathProducts')}>Bath</Button>
         <Button className="d-block w-100 mb-2" onClick={() => navigateTo('/PetProducts')}>Pets</Button>
         <Button className="d-block w-100 mb-2" onClick={() => navigateTo('/KitchenProducts')}>Kitchen</Button>
-        <Button className="d-block w-100 mb-2" onClick={() => navigateTo('viewCart/new')}>View Cart</Button>
+        <Button className="d-block w-100 mb-2" onClick={() => navigateTo('/cart')}>View Cart</Button>
         <Button className="d-block w-100" onClick={signOut}>Sign Out</Button>
       </div>
     </div>
